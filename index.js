@@ -16,7 +16,7 @@ app.get('/categories', (req, res) => { eventBrite.getCategories(req,res) });
 
 app.get('/subcategories', (req, res) => { eventBrite.getSubCategories(req,res) });
 
-app.get('/events', (req, res) => { eventBrite.getEvents(req,res) });
+app.get('/events/:category_id&:location', (req, res) => { eventBrite.getEvents(req,res) });
 
 app.listen(process.env.PORT || 3000, () => {
     if(process.env.PORT)

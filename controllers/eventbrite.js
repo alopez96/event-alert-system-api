@@ -33,7 +33,7 @@ async function getSubCategories (req, res) {
 }
 
 async function getEvents (req, res) {
-    const { category_id, location } = req.body;
+    const { category_id, location } = req.params;
     console.log('location', location)
     try {
         //list public Events from Eventbrite.
