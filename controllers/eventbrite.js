@@ -3,6 +3,7 @@ const keys = require('./../keys');
 
 const oathString = 'Bearer '.concat(keys.eventbritekey);
 
+//get list of categories from Eventbrite
 async function getCategories (req, res) {
     //fetch data
     try {
@@ -18,6 +19,7 @@ async function getCategories (req, res) {
       }
 }
 
+//get list of subcategories from Eventbrite
 async function getSubCategories (req, res) {    
     try {
         //get list of subcategories
@@ -32,6 +34,7 @@ async function getSubCategories (req, res) {
       }
 }
 
+//get events using category and location from Eventbrite
 async function getEvents (req, res) {
     const { category_id, location } = req.params;
     console.log('location', location)
@@ -48,8 +51,26 @@ async function getEvents (req, res) {
       }
 }
 
+//get events using csubategory and location from Eventbrite
+async function getEventsfromSubcategory (req, res) {
+  const { category_id, location } = req.params;
+  console.log('location', location)
+  try {
+      //list public Events from Eventbrite.
+      const response = await axios.get(`https://www.eventbriteapi.com/v3/events/search/?subcategories=${category_id}&location.address=${location}&location.within=50km&expand=venue`,
+                                  {headers: { Authorization: oathString} });
+                                  
+      const data = await response.data;
+      res.json(data)
+
+    } catch (error) {
+      res.status(400).json('getEvents ' + error);
+    }
+}
+
 module.exports = {
     getCategories,
     getSubCategories,
-    getEvents
+    getEvents,
+    getEventsfromSubcategory
 }
