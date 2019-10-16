@@ -8,8 +8,9 @@ async function getCategories (req, res) {
     //fetch data
     try {
         //get list of categories
-        const response = await axios.get('https://www.eventbriteapi.com/v3/categories',
-                                    {headers: { Authorization: oathString} });
+        const response = await axios
+              .get('https://www.eventbriteapi.com/v3/categories',
+              {headers: { Authorization: oathString} });
 
         const data = await response.data.categories;
         res.json(data);
@@ -23,8 +24,9 @@ async function getCategories (req, res) {
 async function getSubCategories (req, res) {    
     try {
         //get list of subcategories
-        const response = await axios.get('https://www.eventbriteapi.com/v3/subcategories',
-                                    {headers: { Authorization: oathString} });
+        const response = await axios
+              .get('https://www.eventbriteapi.com/v3/subcategories',
+              {headers: { Authorization: oathString} });
 
         const data = await response.data.subcategories;
         res.json(data);
@@ -40,11 +42,12 @@ async function getEvents (req, res) {
     console.log('location', location)
     try {
         //list public Events from Eventbrite.
-        const response = await axios.get(`https://www.eventbriteapi.com/v3/events/search/?categories=${category_id}&location.address=${location}&location.within=50km&expand=venue`,
-                                    {headers: { Authorization: oathString} });
+        const response = await axios
+              .get(`https://www.eventbriteapi.com/v3/events/search/?categories=${category_id}&location.address=${location}&location.within=50km&expand=venue`,
+              {headers: { Authorization: oathString} });
                                     
         const data = await response.data;
-        res.json(data)
+        res.json(data);
 
       } catch (error) {
         res.status(400).json('getEvents ' + error);
@@ -57,11 +60,12 @@ async function getEventsfromSubcategory (req, res) {
   console.log('location', location)
   try {
       //list public Events from Eventbrite.
-      const response = await axios.get(`https://www.eventbriteapi.com/v3/events/search/?subcategories=${category_id}&location.address=${location}&location.within=50km&expand=venue`,
-                                  {headers: { Authorization: oathString} });
+      const response = await axios
+            .get(`https://www.eventbriteapi.com/v3/events/search/?subcategories=${category_id}&location.address=${location}&location.within=50km&expand=venue`,
+            {headers: { Authorization: oathString} });
                                   
       const data = await response.data;
-      res.json(data)
+      res.json(data);
 
     } catch (error) {
       res.status(400).json('getEvents ' + error);
