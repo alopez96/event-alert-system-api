@@ -9,22 +9,24 @@ const eventBrite = require('./controllers/eventbrite');
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(function (req, res, next) {
-  /*var err = new Error('Not Found');
-   err.status = 404;
-   next(err);*/
+var allowedOrigins = ['http://localhost:3000', 
+            'https://event-alert-app.netlify.com/'];
 
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(cors({
+  origin: function(origin, callback){
+    //allow requests with on origin
+    //like mobile and curl requests
+    if(!origin) return callback(null, true);
 
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The Cors policy for this site ' +
+              'does not allow access from the specified origin';
+      return callback(new Error(msg), false)
+    }
 
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization');
-
-//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-});
+    return callback(null, true);
+  }
+}))
 
 app.use(morgan('dev')); //debugging for HTTP requests
 
