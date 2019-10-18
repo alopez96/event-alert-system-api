@@ -7,10 +7,9 @@ const morgan = require('morgan');
 const eventBrite = require('./controllers/eventbrite');
 
 app.use(bodyParser.json());
-app.use(cors());
 
 var allowedOrigins = ['http://localhost:3000', 
-            'https://event-alert-app.netlify.com/'];
+            'https://event-alert-app.netlify.com'];
 
 app.use(cors({
   origin: function(origin, callback){
