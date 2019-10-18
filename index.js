@@ -10,8 +10,7 @@ app.use(bodyParser.json());
 
 var allowedOrigins = ['http://localhost:3000', 
             'https://event-alert-app.netlify.com',
-          'http://event-alert-app.netlify.com',
-          'event-alert-app.netlify.com'];
+          'https://event-alert-app.netlify.com/'];
 
 app.use(cors({
   origin: function(origin, callback){
